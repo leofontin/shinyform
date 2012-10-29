@@ -1,0 +1,190 @@
+/*
+*	THEME BLACK Shinyform by Léo Fontin
+*	© www.snoupix.com 2011
+*
+*/
+
+.shinyform_radio, 
+.shinyform_checkbox,
+.shinyform_select,
+.shinyform_select .shinyform_select_button,
+.shinyform_file,
+.shinyform_file .shinyform_file_button  {
+	background: url('../images/shinyform_black.png') no-repeat;
+}
+
+/*--- RADIO - CHECKBOX ---*/
+
+.shinyform_radio,
+.shinyform_checkbox  {
+	position: relative;
+	float: left;
+	width: 25px;
+	height: 25px;
+}
+
+.shinyform_radio {background-position: 0 0}
+.shinyform_radio:hover {background-position: -50px 0;}
+.shinyform_radio.checked {background-position: -25px 0;}
+.shinyform_radio.checked:hover {background-position: -75px 0;}
+.shinyform_radio.disabled {background-position: -100px 0;}
+.shinyform_radio.disabled.checked {background-position: -125px 0;}
+.shinyform_radio.focus {background-position: -150px 0;}
+.shinyform_radio.focus.checked {background-position: -175px 0;}
+
+.shinyform_checkbox {background-position: 0 -25px;}
+.shinyform_checkbox:hover {background-position: -50px -25px;}
+.shinyform_checkbox.checked {background-position: -25px -25px;}
+.shinyform_checkbox.checked:hover {background-position: -75px -25px;}
+.shinyform_checkbox.disabled {background-position: -100px -25px;}
+.shinyform_checkbox.disabled.checked {background-position: -125px -25px;}
+.shinyform_checkbox.focus {background-position: -150px -25px;}
+.shinyform_checkbox.focus.checked {background-position: -175px -25px;}
+
+/*--- RADIO - CHECKBOX ---*/
+
+
+
+/*--- SELECT ---*/
+
+.shinyform_select {
+	position: relative;
+	float: left;
+	height: 35px;
+	background-position: left -260px;
+}
+
+.shinyform_select .shinyform_select_name {
+	float: left;
+	display: block;
+	width: 180px;
+	height: 25px;
+	margin-top: 5px;
+	border-right: 1px solid #898989;
+	text-indent: 20px;
+	line-height: 26px;
+	position: relative;
+	cursor: pointer;
+}
+
+.shinyform_select .shinyform_select_button {
+	display: block;
+	width: 38px;
+	float: left;
+	height: 35px;
+	background-color: #fff;
+	background-position: right -330px;
+	cursor: pointer;
+}
+
+.shinyform_select.hover {background-position: left -295px;}
+.shinyform_select.hover .shinyform_select_button {background-position: right -365px;}
+.shinyform_select.focus { background-position: left -225px;}
+.shinyform_select.focus .shinyform_select_button {	background-position: right -400px;}
+
+.shinyform_select .shinyform_select_list {
+	position: absolute;
+	z-index: 999;
+	width: 165px;
+	background: #fff;
+	border: 1px solid #7F7F7F;
+	left: 15px;
+	top: -3px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.shinyform_select .shinyform_select_list li {
+	display: block;
+	float: none;
+	margin: 0;
+	padding: 0;
+}
+
+.shinyform_select .shinyform_select_list li a {
+	display: block;
+	padding: 3px 10px;
+	text-decoration: none;
+	color: #000;
+	border: 1px solid transparent;
+}
+
+.shinyform_select .shinyform_select_list li a:hover {
+	background: #484848;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	color: #fff;
+	text-shadow: 0 -1px 0 #111111;
+}
+
+.shinyform_select.disabled {background-position: left -155px; color: #b6b6b6;}
+.shinyform_select.disabled .shinyform_select_button {	background-position: right -365px; cursor: default;}
+.shinyform_select.disabled .shinyform_select_name {border-color: #b6b6b6;}
+
+/*--- SELECT ---*/
+
+
+
+
+
+/*--- FILE ---*/
+
+.shinyform_file {
+	position: relative;
+	float: left;
+	height: 35px;
+	background-position: left -190px;
+}
+
+.shinyform_file input{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 55;
+	opacity: 0;
+}
+
+.shinyform_file .shinyform_file_name {
+	float: left;
+	display: block;
+	height: 25px;
+	border-right: 1px solid #898989;
+	width: 120px;
+	margin-top: 5px;
+	text-indent: 20px;
+	color: #949494;
+	font-style: italic;
+	overflow: hidden;
+	line-height: 26px;
+	white-space: nowrap;
+}
+
+.shinyform_file .shinyform_file_button {
+	display: block;
+	position: relative;
+	height: 35px;
+	padding: 0 15px 0 10px;
+	float: left;
+	background-color: #fff;
+	background-position: right -50px;
+	text-align: center;
+	line-height: 36px;
+	color: #ffffff;
+	cursor: pointer;
+	font-weight: bold;
+	text-shadow: 0 -1px 0 #111111;
+}
+
+.shinyform_file.hover {background-position: left -225px;}
+.shinyform_file.hover .shinyform_file_button {background-position: right -85px;}
+.shinyform_file.focus .shinyform_file_button {background-position: right -120px;}
+.shinyform_file.disabled {background-position: left -155px;}
+.shinyform_file.disabled .shinyform_file_button {background-position: right -155px; color: #b6b6b6; text-shadow: none}
+.shinyform_file.disabled .shinyform_file_name {border-color: #b6b6b6;}
+
+/*--- FILE ---*/
