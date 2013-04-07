@@ -31,7 +31,7 @@
 				contener.append('<ul class="shinyform_select_list"></ul>');
 				var liste = $('.shinyform_select_list',contener);
 				for(var i=0; i<nb_item; i++){
-					liste.append('<li><a href="'+elem.find('option').eq(i).val()+'">&bull; '+elem.find('option').eq(i).text()+'</a></li>');
+					liste.append('<li><a href="'+elem.find('option').eq(i).val()+'">'+elem.find('option').eq(i).text()+'</a></li>');
 					if(elem.find('option').eq(i).attr('selected')){
 						var option_selected = i;
 					}
@@ -107,7 +107,7 @@
 						
 			var manageCheck = function(){
 				$('input:radio').each(function(){
-					if($(this).attr('checked')){
+					if($(this).is(':checked')){
 						$(this).parent('.shinyform_radio').addClass('checked');
 					}else{
 						$(this).parent('.shinyform_radio').removeClass('checked');
@@ -133,6 +133,9 @@
 			});		
 		}
 		
+		
+		
+		
 		/// --- CHECKBOX --- ///
 		function shiny_checkbox(elem){
 			elem.wrap('<div class="shinyform_checkbox shinyform"></div>');
@@ -145,7 +148,7 @@
 						
 			var manageCheck = function(){
 				$('input:checkbox').each(function(){
-					if($(this).attr('checked')){
+					if($(this).is(':checked')){
 						$(this).parent('.shinyform_checkbox').addClass('checked');
 					}else{
 						$(this).parent('.shinyform_checkbox').removeClass('checked');
@@ -171,6 +174,9 @@
 			});
 		}
 		
+		
+		
+		
 		/// --- FILE --- ///
 		function shiny_file(elem){
 			elem.wrap('<div class="shinyform_file shinyform"></div>');
@@ -182,8 +188,9 @@
 			var button = $('.shinyform_file_button', contener);
 			
 			
-			elem.css({ 	height : $('.shinyform_file').height(),
-							opacity : 0.0});
+			elem.css({ 	height : $('.shinyform_file').outerHeight(),
+						opacity : 0.0
+					});
 							
 			if(elem.attr('disabled')){
 				contener.addClass('disabled');
@@ -218,9 +225,11 @@
 		
 		return this.each(function(){
 			
+			/*
 			if($.browser.msie && $.browser.version < 7){
 				return false;
 			}
+			*/
 		
 			var my = $(this);
 		
