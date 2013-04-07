@@ -131,7 +131,7 @@
 		height: 35px;
 		border: 1px solid #000;
 		cursor: pointer;
-		@include border-radius($radius);
+		@include border-radius($radius); 
 		@include box-shadow(0 1px 0 #3f3f3f, inset 0 2px 3px rgba(#000,0.5));
 		@extend .clearfix;
 		
