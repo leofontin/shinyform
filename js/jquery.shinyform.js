@@ -1,8 +1,8 @@
 /*
 * 
-* 		Shinyform 1.0 par Léo Fontin pour www.snoupix.com
-*		© www.snoupix.com 2011
-*		Réalisé pour Snoupix.com et à disposition selon les termes de la licence Creative Commons. http://creativecommons.org/licenses/by-sa/3.0/ 
+* 		Shinyform 1.0 par LÃ©o Fontin
+*		Â© www.leofontin.fr 2013
+*		RÃ©alisÃ© pour leofontin.fr et Ã  disposition selon les termes de la licence Creative Commons. http://creativecommons.org/licenses/by-sa/3.0/ 
 *
 *
 */
@@ -14,50 +14,158 @@
 	
 		/// --- SELECT --- ///
 		function shiny_select(elem){
+			
+			
+			// wrap Ã©lÃ©ment et cache Ã©lemnt
 			elem.wrap('<div class="shinyform_select shinyform"></div>');
 			elem.hide();
 			
+			// crÃ©ation du contener
 			var contener = elem.parent('.shinyform_select');
+			
+			// rÃ©cupÃ©ration des class de l'Ã©lÃ©ment pour l'ajouter au cintener
 			contener.addClass(elem.attr('class'));
-			contener.append('<span class="shinyform_select_name"></span><span class="shinyform_select_button"></span>');
+			
+			// crÃ©ation des premiers Ã©lÃ©ments visibles
+			contener.append('<span class="shinyform_select_name"></span><span class="shinyform_select_button"></span><div class="shinyform_content"></div>');
+			var content = $('.shinyform_content',contener);
 			var name = $('.shinyform_select_name', contener);
 			var button = $('.shinyform_select_button, .shinyform_select_name', contener);
 			
 			
+			
+			// index de l'item prÃ©-selectionnÃ© par dÃ©faut
 			var option_selected = 0;
 			
+			// nombre d'item
 			var nb_item = elem.find('option').length;
-			if(nb_item > 1){
-				contener.append('<ul class="shinyform_select_list"></ul>');
-				var liste = $('.shinyform_select_list',contener);
+			
+			
+			// cration de la listee
+			if(nb_item > 0){		
+			
+				// crÃ©ation de la liste
+				content.append('<ul class="shinyform_select_list"></ul>');
+				var liste = $('.shinyform_select_list',content);
+				
+				// boucle sur les option du select pour les ajouter Ã  la liste
 				for(var i=0; i<nb_item; i++){
+					
+					// crÃ©ation de l'item
 					liste.append('<li><a href="'+elem.find('option').eq(i).val()+'">'+elem.find('option').eq(i).text()+'</a></li>');
+					
+					// on cache tous les Ã©lÃ©ments pour faire une liste uniquement de 4 items
+					/*
+if(i > 10){
+						liste.find('li').eq(i).hide();
+					}
+*/
+					
+					// si une option est dite checked, on change l'option de prÃ©section d'un item
 					if(elem.find('option').eq(i).attr('selected')){
 						var option_selected = i;
 					}
 				}
+				
+				
+				// ajout du formulaire de recherche
+				//content.prepend('<div class="shinyform_search"><input type="text"/></div>');
+				search = $('.shinyform_search input',content);
+				
+				if(nb_item < 10){
+					search.parent().hide();
+				}
+				
+				// message d'erreur si aucun item n'est trouvÃ©
+				content.append('<div class="shinyform_error">Aucun item dans la liste</div>');
+				error = $('.shinyform_error', content);
+				error.hide();
+				
+				// gestion des action pour la recherche d'item
+				if(liste != undefined){
+
+					search.keyup(function(){
+						
+						// caratÃ¨res tapÃ©s
+						var value = $(this).val();
+						
+						// nombre de caratÃ¨res tapÃ©s
+						var nbchar = value.length;
+						
+						// la valeur n'est pas vide, on cherche les items
+						if(value != ''){
+							
+							// cache tous les items
+							liste.find('li').hide();
+							
+							// montre uniquement les items qui commencent par les caratÃ¨res tapÃ©s
+							liste.find('li').each(function(){
+								
+								// text de l'item
+								var text = $(this).find('a').text();
+
+								if(text.toLowerCase().substring(0,nbchar) == value.toLowerCase()){
+									$(this).show()
+								}
+								
+							});
+							
+							
+							// si aucun Ã©lÃ©ment trouvÃ©s > affichage message erreur
+							if(liste.find('li:visible').length < 1){
+								liste.next('.shinyform_error').show();
+							}else{
+								liste.next('.shinyform_error').hide();
+							}
+							
+						}
+						
+						
+						// rÃ©affiche les 5 premier items
+						else{
+							liste.find('li:nth-child(-n+5)').show();
+							liste.next('.shinyform_error').hide();
+						}
+						
+					});
+
+				}
+				
+				
 			}
 			
+			// on affiche le text de l'item prÃ©-selectionnÃ© dans le champ du select
 			name.text(elem.find('option').eq(option_selected).text());
 			
-			liste.hide();
+			// on cache le liste
+			content.hide();
 			
 			if(elem.attr('disabled')){
 				contener.addClass('disabled');
 				return;
 			}
 			
+			
+			// gestion de la liste
 			var manageList = function(){
+			
 				if(contener.hasClass('open')){
 					$('.shinyform_select').removeClass('open');
-					$('.shinyform_select_list').hide();
+					$('.shinyform_content').hide();
 				}else{
 					$('.shinyform_select').removeClass('open');;
-					$('.shinyform_select_list').hide();
+					$('.shinyform_content').hide();
+					
+					contener.find('.shinyform_search input').val('');
+					contener.find('.shinyform_error').hide();
+					contener.find('li:nth-child(-n+5)').show();
+					
 					contener.addClass('open');
-					liste.slideDown(100);
+					content.slideDown(100);
 				}
+				
 			}
+
 			
 			contener.hover(function(){
 				$(this).addClass('hover');
@@ -65,6 +173,8 @@
 				$(this).removeClass('hover');
 			});
 			
+			
+			// gestion du focus sur l'Ã©lÃ©ment pour design
 			button.mousedown(function(){
 				contener.addClass('focus');
 			});
@@ -72,28 +182,49 @@
 				contener.removeClass('focus');
 			});
 			
+			
+			// click sur un bouton > afficher ou cacher la liste
 			button.click(function(){
 				manageList();
 			});
 			
-			liste.find('a').click(function(){
-				option_selected = liste.find('a').index($(this));
-				contener.find('select option').eq(option_selected).attr('selected','selected');
-				name.text(elem.find('option').eq(option_selected).text());
-				manageList();
-				return false;
-			});
 			
+			// click sur un item
+			if(liste != undefined){
+				liste.find('a').click(function(){
+					
+					// rÃ©cupÃ¨re l'index pour l'item prÃ©-selectionnÃ©
+					option_selected = liste.find('a').index($(this));
+					
+					// ajoute l'attribu selected Ã  l'option correspondante Ã  l'item
+					contener.find('select option').eq(option_selected).attr('selected','selected');
+					
+					// rÃ©cupÃ¨re le text de l'item sÃ©lectionnÃ©
+					name.text(elem.find('option').eq(option_selected).text());
+					
+					elem.change();
+					
+					manageList();
+					
+					return false;
+				});
+			}
+			
+			
+			// fermeture de la liste quand on clique partout
 			$('body').click(function() { 
 				$('.shinyform_select').removeClass('open');
-				$('.shinyform_select_list').hide();
+				$('.shinyform_content').hide();
 			}); 
-			
-			button.click(function(event){ 
-				event.stopPropagation(); 
-			});
+			button.click(function(event){ event.stopPropagation(); });
+			content.click(function(event){ event.stopPropagation(); });
 			
 		}
+		
+		
+		
+		
+		
 	
 		/// --- RADIO --- ///
 		function shiny_radio(elem){
@@ -188,9 +319,11 @@
 			var button = $('.shinyform_file_button', contener);
 			
 			
-			elem.css({ 	height : $('.shinyform_file').outerHeight(),
-						opacity : 0.0
-					});
+			elem.css({ 	
+				height : $('.shinyform_file').outerHeight(),
+				width : $('.shinyform_file').outerWidth(),
+				opacity : 0.0
+			});
 							
 			if(elem.attr('disabled')){
 				contener.addClass('disabled');

@@ -1,0 +1,14 @@
+{
+  "name": "shinyform",
+  "homepage": "https://github.com/leofontin/shinyform",
+  "authors": [
+    "Léo Fontin"
+  ],
+  "description": "Design form plugin for jQuery",
+  "main": "js/jquery.shinyform.js",
+  "moduleType": [],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "2.2.0"
+  },
+}
