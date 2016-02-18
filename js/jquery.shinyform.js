@@ -14,7 +14,11 @@
 	
 		/// --- SELECT --- ///
 		function shiny_select(elem){
-			
+
+
+			if(elem.parents('.shinyform_select').length != 0){
+				return;
+			}
 			
 			// wrap Ã©lÃ©ment et cache Ã©lemnt
 			elem.wrap('<div class="shinyform_select shinyform"></div>');
